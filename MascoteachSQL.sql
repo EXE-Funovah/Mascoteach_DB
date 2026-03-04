@@ -7,9 +7,10 @@ CREATE TABLE Game_Templates (
 
 CREATE TABLE Users (
     id INT IDENTITY(1,1) PRIMARY KEY,
+	full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL CHECK (role IN ('Teacher', 'Parent','Student')),
+    role VARCHAR(50) NOT NULL CHECK (role IN ('Teacher', 'Parent','Student','Admin')),
     subscription_tier VARCHAR(50) NOT NULL CHECK (subscription_tier IN ('Freemium', 'Premium')),
     documents_processed INT DEFAULT 0,
     created_at DATETIME DEFAULT GETDATE()
