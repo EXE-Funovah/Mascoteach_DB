@@ -61,10 +61,18 @@ CREATE TABLE Questions (
     id INT IDENTITY(1,1) PRIMARY KEY,
     quiz_id INT NOT NULL,
     question_text NVARCHAR(MAX) NOT NULL,
-    options NVARCHAR(MAX) NOT NULL,
-    correct_answer NVARCHAR(255) NOT NULL,
-	is_deleted BIT NOT NULL,
+    question_type VARCHAR(50) DEFAULT 'MultipleChoice', 
+    is_deleted BIT NOT NULL DEFAULT 0,
     CONSTRAINT FK_Questions_Quizzes FOREIGN KEY (quiz_id) REFERENCES Quizzes(id)
+);
+
+CREATE TABLE Options (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    question_id INT NOT NULL,
+    option_text NVARCHAR(MAX) NOT NULL,
+    is_correct BIT NOT NULL DEFAULT 0, 
+    is_deleted BIT NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Options_Questions FOREIGN KEY (question_id) REFERENCES Questions(id)
 );
 
 CREATE TABLE Live_Sessions (
